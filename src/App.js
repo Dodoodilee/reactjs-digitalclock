@@ -1,25 +1,30 @@
-import logo from './logo.svg';
-import './App.css';
+import React, { useState, useEffect } from "react";
+import "./App.css"; // Import the CSS for styling
 
-function App() {
+const App = () => {
+  const [time, setTime] = useState(new Date().toLocaleTimeString());
+
+  // Update the time every second
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      setTime(new Date().toLocaleTimeString());
+    }, 1000);
+
+    // Clean up interval on unmount
+    return () => clearInterval(intervalId);
+  }, []);
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div className="clock-container">
+      {/* Clock display */}
+      <div className="clock">
+        <div className="time">{time}</div>
+        <div className="brand-name">Sophie And Dodo</div>
+      </div>
+      {/* Powered by text with fade effect */}
+      <div className="powered-by">Powered by Sophie And Dodo</div>
     </div>
   );
-}
+};
 
 export default App;
